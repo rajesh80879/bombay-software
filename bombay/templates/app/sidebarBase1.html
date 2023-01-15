@@ -1,0 +1,37 @@
+{% load static %}
+
+<div class="vertical-menu">
+
+    <div data-simplebar class="h-100">
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+            <li>
+                    <a href="{% url 'users' %}">
+                        <img src="{% static 'assets/images/team.png' %}" width="50" height="50" style="margin-left:10px;margin-right:10px;">
+                        <span data-key="t-chat" style="margin-right:10px;"><b>Users</b></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'profile' %}">
+                        <img src="{% static 'assets/images/profile.png' %}" width="50" height="50" style="margin-left:10px;margin-right:10px;">
+
+                        <span data-key="t-chat">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'change-password' %}">
+                        <img src="{% static 'assets/images/password.png' %}" width="50" height="50" style="margin-left:10px;margin-right:10px;">
+                        &nbsp
+                        <span data-key="t-chat">Change Password</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+

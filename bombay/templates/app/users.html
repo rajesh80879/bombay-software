@@ -1,0 +1,232 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Users | Bombay Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+        
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/cfos.png' %}">
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />
+
+    <style>
+        html *
+        {
+            font-family: Muli !important;
+        }
+    </style>
+
+    <!-- DataTables -->
+    <link href="{% static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet"
+        type="text/css" />
+    <link href="{% static 'assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}"
+        rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- preloader css -->
+    <link rel="stylesheet" href="{% static 'assets/css/preloader.min.css' %}" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+
+    {% comment %} <script>
+        function check_fname(){
+            var f = document.frm.name.value;
+            var reg = "/^[A-Za-z]+$"
+
+            if(f.trim()==""){
+
+            }
+        }
+    </script> {% endcomment %}
+
+</head>
+<style>
+body {
+    background-color: #e8f5ff;
+    font-family: Arial;
+    overflow: hidden;
+}
+</style>
+
+
+<body>
+
+    <!-- <body data-layout="horizontal"> -->
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        {% include 'app/navbarBase.html' %}
+
+        <!-- ========== Left Sidebar Start ========== -->
+         {% include 'app/sidebarBase1.html' %}
+        <!-- Left Sidebar End -->
+
+
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    {% if messages %}
+                        <div class="alert {% for message in messages %}{% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}{% endfor %} alert-dismissible alert-outline fade show" role="alert">
+                            {% for message in messages %}
+                            <strong {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-15" >
+                            <h1 class="mb-sm-0 font-size-18">Users</h1>
+                            <div class="card">
+
+
+
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100 dataTable no-footer dtr-inline" style="table-layout: auto">
+                                            <thead id="header">
+                                                <tr align="center">
+                                                    <th>Firstname</th>
+                                                    <th>Lastname</th>
+                                                    <th>DOB</th>
+                                                    <th>Email</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Gender</th>
+                                                    <th>Type</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i in user %}
+                                                <tr align="center">
+                                                    <td>{{i.firstname}}</td>
+                                                    <td>{{i.lastname}}</td>
+                                                    <td>{{i.dob}}</td>
+                                                    <td>{{i.email}}</td>
+                                                    <td>{{i.contact}}</td>
+                                                    <td>{{i.gender}}</td>
+                                                   <td>{{i.type}}</td>
+
+
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end card -->
+                        </div> <!-- end col -->
+                    </div> <!-- end row --> 
+                    
+
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+
+            {% include 'app/footerBase.html' %}
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+<!--    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>-->
+    <!-- pace js -->
+    <script src="{% static 'assets/libs/pace-js/pace.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+    <script src="{% static 'assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+
+    <!-- form validation -->
+    <script src="{% static 'assets/js/pages/form-validation.init.js' %}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{% static 'assets/libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <!-- Buttons examples -->
+    <script src="{% static 'assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'assets/libs/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'assets/libs/pdfmake/build/pdfmake.min.js' %}"></script>
+    <script src="{% static 'assets/libs/pdfmake/build/vfs_fonts.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+
+
+    <!-- Responsive examples -->
+    <script src="{% static 'assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+<!--    <script src="{% static 'assets/js/darkmode.init.js' %}"></script>-->
+    <!-- Datatable init js -->
+
+         <script>
+            var min, max ;
+            $(document).ready(function(){
+                $("#datatable").DataTable()
+                $('#datatable-buttons thead tr')
+
+                var table = $('#datatable-buttons').DataTable({
+                    // scrollX: true,
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    lengthChange:!1,
+                    buttons:["pdf"],
+
+                }).columns.adjust().buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
+                $(".dataTables_length select").addClass("form-select form-select-sm")
+            });
+        </script>
+
+
+</body>
+
+</html>

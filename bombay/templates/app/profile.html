@@ -1,0 +1,451 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Profile | Bombay Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+        
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/cfos.png' %}">
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />
+
+    <style>
+        html *
+        {
+            font-family: Muli !important;
+        }
+    </style>
+
+    <!-- DataTables -->
+    <link href="{% static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet"
+        type="text/css" />
+    <link href="{% static 'assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}"
+        rel="stylesheet" type="text/css" />
+
+        <link href="{% static 'assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- preloader css -->
+    <link rel="stylesheet" href="{% static 'assets/css/preloader.min.css' %}" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+
+    {% comment %} <script>
+        function check_fname(){
+            var f = document.frm.name.value;
+            var reg = "/^[A-Za-z]+$"
+
+            if(f.trim()==""){
+
+            }
+        }
+    </script> {% endcomment %}
+
+</head>
+<style>
+body {
+    background-color: #e8f5ff;
+    font-family: Arial;
+    overflow: hidden;
+}
+
+.main {
+    margin-top: 2%;
+    margin-left: 20%;
+    font-size: 28px;
+    padding: 0 10px;
+    width: 58%;
+}
+
+.main h2 {
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+}
+
+.main .card {
+    background-color: #fff;
+    border-radius: 18px;
+    box-shadow: 1px 1px 8px 0 grey;
+    height: auto;
+    margin-bottom: 20px;
+    padding: 20px 0 20px 50px;
+}
+
+.main .card table {
+    border: none;
+    font-size: 16px;
+    height: 270px;
+    width: 80%;
+}
+td {
+  padding: 8px;
+}
+    </style>
+
+
+<body>
+
+    <!-- <body data-layout="horizontal"> -->
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        {% include 'app/navbarBase.html' %}
+
+        <!-- ========== Left Sidebar Start ========== -->
+         {% include 'app/sidebarBase1.html' %}
+        <!-- Left Sidebar End -->
+
+
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    {% if messages %}
+                        <div class="alert {% for message in messages %}{% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}{% endfor %} alert-dismissible alert-outline fade show" role="alert">
+                            {% for message in messages %}
+                            <strong {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-15" >
+
+                            {% for i in profile %}
+                            <div class="main">
+                            <h2>Profile</h2>
+                            <div class="card">
+                                <div class="card-body">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Firstname</td>
+                                                <td>:</td>
+                                                <td>{{i.firstname}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lastname</td>
+                                                <td>:</td>
+                                                <td>{{i.lastname}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date Of Birth</td>
+                                                <td>:</td>
+                                                <td>{{i.dob}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Contact</td>
+                                                <td>:</td>
+                                                <td>{{i.contact}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td>:</td>
+                                                <td>{{i.email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gender</td>
+                                                <td>:</td>
+                                                <td>{{i.gender}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Type</td>
+                                                <td>:</td>
+                                                <td>{{i.type}}</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                 <td style="width: 1px;">
+                                                     <br>
+                                                    <button type="button" id="update-btn" data-uid="{{i.id}}" class="btn btn-primary waves-effect waves-light"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#UpdateModal">Update
+                                                    </button>
+
+                                                    </td>
+                                            </tr>
+
+
+
+                                    </table>
+                                </div>
+                            </div>
+                         {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal fade bs-example-modal-center" id="UpdateModal" tabindex="-1" role="dialog"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Update User Profile</h5>
+                                <button type="button" class="btn-close"
+                                    style="padding: 0rem 2rem; width: 2px"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!--         <h4 class="card-title mb-4">Create New Announcement</h4>-->
+                                <form action="{% url 'update-user' %}" method="POST" enctype="multipart/form-data" id="update-form" class="needs-validation-upd" novalidate>
+                                    {% csrf_token %}
+                                    <input type="hidden" id="user-id" name="user_id" value="">
+                                    <div class="form-floating form-floating-custom mb-4">
+                                                <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter Firstname" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Looks bad!
+                                                </div>
+                                                <label>Firstname</label>
+                                                <div class="form-floating-icon">
+                                                   <i data-feather="users"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-floating form-floating-custom mb-4">
+                                                <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Lastname" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Looks bad!
+                                                </div>
+                                                <label>Lastname</label>
+                                                <div class="form-floating-icon">
+                                                   <i data-feather="users"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-floating form-floating-custom mb-4">
+                                                <input type="email" class="form-control" name="email" id="email" pattern="\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+" placeholder="Enter Email" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Looks bad!
+                                                </div>
+                                                <label>Email ID</label>
+                                                <div class="form-floating-icon">
+                                                   <i data-feather="users"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-floating form-floating-custom mb-4">
+                                                <input type="text" class="form-control" name="contact" id="contact" placeholder="Contact" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Looks bad!
+                                                </div>
+                                                <label>contact</label>
+                                                <div class="form-floating-icon">
+                                                   <i data-feather="users"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-floating form-floating-custom mb-4">
+                                                <input type="date" class="form-control" name="dob" id="dob" placeholder="Enter Date" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Looks bad!
+                                                </div>
+                                                <label>Date of birth</label>
+                                                <div class="form-floating-icon">
+                                                   <i data-feather="users"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-floating form-floating-custom mb-4">
+<!--                                                <input type="text" class="form-control" name="role" id="role" >-->
+<!--                                                 <label for="cars">Choose a car:</label>-->
+
+                                                 <select id="gender" class="form-select" name="gender">
+                                                     <option value="" disabled selected>Select Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+
+                                                 </select>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Looks bad!
+                                                </div>
+                                                <label>Gender</label>
+                                                <div class="form-floating-icon">
+                                                   <i data-feather="users"></i>
+                                                </div>
+                                            </div>
+
+
+                                    <div class="row justify-content-end">
+                                        <div class="col-lg-10">
+                                            <button type="submit" style="float: right;"
+                                                class="btn btn-primary" id="submit-err1">Update
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+            {% include 'app/footerBase.html' %}
+
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+<!--    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>-->
+    <!-- pace js -->
+    <script src="{% static 'assets/libs/pace-js/pace.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+    <script src="{% static 'assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+
+    <!-- form validation -->
+    <script src="{% static 'assets/js/pages/form-validation.init.js' %}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{% static 'assets/libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <!-- Buttons examples -->
+    <script src="{% static 'assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'assets/libs/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'assets/libs/pdfmake/build/pdfmake.min.js' %}"></script>
+    <script src="{% static 'assets/libs/pdfmake/build/vfs_fonts.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+
+
+    <!-- Responsive examples -->
+    <script src="{% static 'assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+<!--    <script src="{% static 'assets/js/darkmode.init.js' %}"></script>-->
+    <!-- Datatable init js -->
+    <script>
+            $("table").on("click",'#update-btn',function(){
+                var aid = $(this).attr("data-uid");
+
+                $.ajax
+                ({
+                    method : "GET",
+                    url : `/show-user/${aid}`,
+
+                    success: function(data)
+                    {
+                        console.log(data)
+                        $("#user-id").val(data['id']);
+                        $("#firstname").val(data['firstname']);
+                        $("#email").val(data['email']);
+                        $("#lastname").val(data['lastname']);
+                        $("#contact").val(data['contact']);
+                        $("#gender").val(data['gender']);
+                        $("#dob").val(data['dob']);
+
+                    }
+                });
+            });
+        </script>
+         <script>
+            var min, max ;
+            $(document).ready(function(){
+                $("#datatable").DataTable()
+                $('#datatable-buttons thead tr')
+
+                var table = $('#datatable-buttons').DataTable({
+                    // scrollX: true,
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    lengthChange:!1,
+                    buttons:["pdf"],
+
+                }).columns.adjust().buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
+                $(".dataTables_length select").addClass("form-select form-select-sm")
+            });
+        </script>
+
+
+        <script>
+            function delfun(x) {
+                Swal.fire({
+                    title:"Are you sure?",
+                    text:"You won't be able to revert this!",
+                    icon:"warning",
+                    showCancelButton:!0,
+                    confirmButtonText:"Yes, delete it!",
+                    cancelButtonText:"No, cancel!",
+                    confirmButtonClass:"btn btn-success mt-2",
+                    cancelButtonClass:"btn btn-danger ms-2 mt-2",
+                    buttonsStyling:!1
+                }).then(function(e){
+                    e.value?Swal.fire({
+                    title:"Deleted!",
+                    text:"Your user has been deleted.",
+                    icon:"success",
+                    confirmButtonColor:"#1c84ee"
+                }).then(setTimeout(() => { location.href = `/deleteuser/${x}/` }, 900)):e.dismiss===Swal.DismissReason.cancel&&Swal.fire({
+                    title:"Cancelled",
+                    text:"Your user is safe :)",
+                    icon:"error",
+                    confirmButtonColor:"#1c84ee"})
+                })
+            }
+        </script>
+
+
+</body>
+
+</html>

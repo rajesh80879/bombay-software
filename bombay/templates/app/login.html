@@ -1,0 +1,179 @@
+{% load static %}
+{% csrf_token %}
+<!doctype html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>Login | CFO Services</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="Themesbrand" name="author" />
+        
+        <!-- App favicon -->
+
+    
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli" />
+    
+        <style>
+            html *
+            {
+                font-family: Muli !important;
+            }
+        </style>
+
+        <!-- preloader css -->
+        <link rel="stylesheet" href="{% static 'assets/css/preloader.min.css' %}" type="text/css" />
+
+        <!-- Bootstrap Css -->
+        <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body data-topbar="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+        <div class="auth-page">
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+                    <div class="col-xxl-3 col-lg-4 col-md-5">
+                        <div class="auth-full-page-content d-flex p-sm-5 p-4">
+                            <div class="w-100">
+                                <div class="d-flex flex-column h-100">
+                                    <div class="mb-4 mb-md-5 text-center">
+                                        <!-- <a href="index.html" class="d-block auth-logo"> -->
+                                            <img src="{% static 'assets/images/bombay.png' %}" alt="" width="200"> <span class="logo-txt"></span>
+                                        <!-- </a> -->
+                                    </div>
+                                    <div class="auth-content my-auto">
+                                        <div class="text-center">
+                                            <h5 class="mb-0">Welcome!</h5>
+                                            <p class="text-muted mt-2">Sign in to continue.</p>
+                                        </div>
+                                        {% if messages %}
+                                            <div class="alert {% for message in messages %}{% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}{% endfor %} alert-dismissible alert-outline fade show" role="alert">
+                                                {% for message in messages %}
+                                                <strong {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</strong>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <form action="{% url 'logindata' %}" method="post" class="needs-validation" novalidate>
+                                            {% csrf_token %}
+                                            <div class="form-floating form-floating-custom mb-4">
+                                                <input type="email" class="form-control" name="email" id="Email" pattern="\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+" placeholder="Enter Email" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Looks bad!
+                                                </div>
+                                                <label for="input-username">Email ID</label>
+                                                <div class="form-floating-icon">
+                                                   <i data-feather="users"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-floating form-floating-custom mb-4 auth-pass-inputgroup">
+                                                <input type="password" class="form-control pe-5" name="password" id="Password" placeholder="Enter Password" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Looks bad!
+                                                </div>
+                                                
+                                                <button type="button" class="btn btn-link position-absolute h-100 end-0 top-0" id="password-addon">
+                                                    <i class="mdi mdi-eye-outline font-size-18 text-muted"></i>
+                                                </button>
+                                                <label for="input-password">Password</label>
+                                                <div class="form-floating-icon">
+                                                    <i data-feather="lock"></i>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- <span class="text-danger">Password must contain :- <br> 1 Uppercase alphabet,<br> 1 Lowercase alphabet,<br> 1 Number, <br> 1 Special Character</span>
+                                            <br><br> -->
+
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <div class="form-check font-size-15">
+                                                        <a href="{% url 'forgotemail' %}" class="text-primary font-size-13" style="float: right;">Forgot Password?</a>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="mb-3">
+                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Login</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col">
+                                            <div class="form-check font-size-15">
+                                                <span>Create a new Account &nbsp;<a href="{% url 'register' %}" class="text-primary font-size-20"><b>Sign up</b></a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% include 'app/footer1.html' %}
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end auth full page content -->
+                    </div>
+                    <!-- end col -->
+                    <div class="col-xxl-9 col-lg-8 col-md-7">
+                        <div class="auth-bg pt-md-5 p-4 d-flex">
+                            <div class="col-xl-7">
+                                <p>
+                                    <br style="line-height: 10%;">
+                                    <br style="line-height: 10%;">
+                                    <br style="line-height: 10%;">
+                                    <br style="line-height: 10%;">
+                                    <br style="line-height: 10%;">
+                                </p>
+                            </div>
+                        </div> 
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container fluid -->
+        </div>
+
+
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'assets/libs/jquery/jquery.min' %}"></script>
+        <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+        <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
+        <!-- pace js -->
+        <script src="{% static 'assets/libs/pace-js/pace.min.js' %}"></script>
+
+        <script src="{% static 'assets/js/pages/feather-icon.init.js' %}"></script>
+
+        <!-- form validation -->
+        <script src="{% static 'assets/js/pages/form-validation.init.js' %}"></script>
+
+        <script>
+            document.getElementById("password-addon").addEventListener("click",function(){
+                var e=document.getElementById("Password");
+                "password"===e.type?e.type="text":e.type="password"
+            });
+        </script>
+
+    </body>
+</html>
