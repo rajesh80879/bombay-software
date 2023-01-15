@@ -1,4 +1,3 @@
-bombaysoftware/bombaysoftware/.env
 db.sqlite3
-.env
+bombaysoftware/.env
 env
