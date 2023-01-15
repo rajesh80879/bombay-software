@@ -17,8 +17,8 @@ urlpatterns = [
     path("fpotp/", fpOTP, name="forgototp"),
     path("badrequest/", bad_Request, name="badrequest"),
     path("updateuser", update_user, name="update-user"),
-    path("show-user/<int:id>", show_user, name="show-user"),
+    path("show-user/<int:pk>", show_user, name="show-user"),
     path("logout/", logout_user, name="logout-user"),
-    path('change-password/', changePassword, name="change-password")
+    path('change-password/', change_password, name="change-password")
 
     ]

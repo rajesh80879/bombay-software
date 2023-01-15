@@ -10,7 +10,6 @@ from .models import *
 from .utils import EmailThread
 
 
-
 # Create your views here.
 def register_user(request):
     try:
@@ -33,23 +32,29 @@ def register_user(request):
                 if password == conf_password:
 
                     user = User.objects.filter(email=email)
-                    if len(user) == 0:
+                    contact = User.objects.filter(contact=contact)
 
-                        c_user = User.objects.create(
-                            firstname=firstname,
-                            lastname=lastname,
-                            dob=dob,
-                            gender=gender,
-                            type=type_of_user,
-                            email=email,
-                            contact=contact,
-                            password=make_password(password))
-                        c_user.save()
-                        recipient_list = c_user.email
-                        EmailThread(f'This is your username please login to continue.{c_user.email}{password}',
-                                    recipient_list=[recipient_list]).start()
-                        messages.success(request, "User Created,Please login to continue !!")
-                        return redirect('login')
+                    if len(user) == 0:
+                        if len(contact) == 0:
+
+                            c_user = User.objects.create(
+                                firstname=firstname,
+                                lastname=lastname,
+                                dob=dob,
+                                gender=gender,
+                                type=type_of_user,
+                                email=email,
+                                contact=contact,
+                                password=make_password(password))
+                            c_user.save()
+                            recipient_list = c_user.email
+                            EmailThread(f'This is your username-{c_user.email} and  password-{password}  please login to continue.',
+                                        recipient_list=[recipient_list]).start()
+                            messages.success(request, "User Created,Please login to continue !!")
+                            return redirect('login')
+                        else:
+                            messages.error(request, "Contact already exists")
+                            return redirect('users')
 
                     else:
                         messages.error(request, "Email already exists")
@@ -62,10 +67,8 @@ def register_user(request):
                 return redirect('users')
 
     except Exception as e:
-        print("------------>", e)
         messages.error(request, "Something went wrong !!")
         return redirect("users")
-
 
 
 def login_user(request):
@@ -79,35 +82,25 @@ def login_user(request):
             logout(request)
             return render(request,"app/login.html")
 
+
 def login_data(request):
     if request.method == "POST":
         email = request.POST['email']
         password = request.POST['password']
-        print((email))
-        print(password)
-        user = authenticate(request,email=email,password=password)
-        print(user)
-        if user is not None:
-            login(request, user)
-        # try:
-        #         get_user = User.objects.get(email=email)
-        #         print(get_user)
-        #         if get_user:
-                    # if check_password(password, get_user.password):
-                    #     request.user.email = get_user.email
-                    #     request.user.role = get_user.role
-                    #     request.user.id = get_user.employees
-                    #     request.user.name = get_user.name
-                    #     request.user.creator = get_user.creator
 
-            print("abc")
-            return redirect('users')
+        user = authenticate(request, email=email, password=password)
+        if user:
+            login(request, user)
+            get_user = User.objects.get(email=email)
+            if get_user:
+                return redirect('users')
+            else:
+                messages.error(request, "User Doesn't Exist")
+                return redirect("/")
         else:
-            messages.error(request,"Incorrect Password")
-            return redirect("login")
-        # except Exception as ep:
-        #         messages.error(request, str(ep))
-        #         return redirect("/")
+            messages.error(request, "Incorrect credentials")
+            return redirect("/")
+
     else:
         messages.error(request,"Session Expired")
         return redirect("login")
@@ -116,14 +109,11 @@ def login_data(request):
 def users(request):
     try:
         if request.method == "GET":
-            if request.user.is_authenticated:
-                user = User.objects.all()
-                # return redirect('users')
-                return render(request,"app/users.html",{'user':user})
-            else:
-                messages.error(request, "Please Login to continue !!")
-                return redirect("/")
-
+            user = User.objects.all()
+            return render(request,"app/users.html",{'user': user})
+        else:
+            messages.error(request, "Please Login to continue !!")
+            return redirect("/")
 
     except Exception as ep:
         print(ep)
@@ -136,8 +126,10 @@ def logout_user(request):
     messages.info(request, "Logged out successfully!")
     return redirect('login')
 
+
 def forgot(request):
     return render(request,"app/fp-email.html")
+
 
 def fpOTPPage(request):
     if 'otp' in request.session:
@@ -250,9 +242,11 @@ def fpEmailPage(request):
         messages.error(request,"Session Expired")
         return redirect("/")
 
+
 def bad_Request(request):
     request.user.flush()
     return render(request,"app/badrequest.html")
+
 
 @login_required
 def profile(request):
@@ -269,6 +263,7 @@ def profile(request):
         print(ep)
         messages.error(request, "Something went wrong !!")
         return redirect("/")
+
 
 @login_required
 def update_user(request):
@@ -300,18 +295,13 @@ def update_user(request):
     except Exception as ep:
 
         messages.error(request, str(ep))
-
         return redirect("profile")
 
 
-def show_user(request, id):
-
+def show_user(request, pk):
     try:
-
         if request.method == "GET":
-
-            user = User.objects.get(id=id)
-
+            user = User.objects.get(id=pk)
             return JsonResponse(
                 {
                     "id": user.id,
@@ -326,11 +316,11 @@ def show_user(request, id):
             )
 
     except Exception as ep:
-
         return JsonResponse({"error": str(ep)})
 
+
 @login_required
-def changePassword(request):
+def change_password(request):
     try:
         if request.method == "GET":
             user = User.objects.all()
@@ -354,11 +344,7 @@ def changePassword(request):
                 messages.error(request, "Please fill all the mandatory fields")
                 return redirect('change-password')
 
-
-
     except Exception as ep:
         print(ep)
         messages.error(request, "Something went wrong !!")
         return redirect("/")
-
-
